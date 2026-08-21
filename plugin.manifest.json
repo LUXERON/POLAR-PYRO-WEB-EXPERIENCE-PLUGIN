@@ -21,6 +21,9 @@
     "evidence_classes": ["web.closed_compilation", "web.euclid_obligations"],
     "timeout_ms": 30000
   }],
-  "contributions": [{"slot": "command.palette", "label": "Compile Web Experience", "entry": "web.compile_experience"}],
+  "contributions": [
+    {"slot": "command.palette", "label": "Compile Web Experience", "entry": "web.compile_experience"},
+    {"slot": "inspector.overlay", "label": "Web Experience", "entry": "ui/index.html"}
+  ],
   "compatibility": {"host_api": ">=1.0 <2.0", "parent_commit": "8a24a2b", "release_gate": "browser+accessibility+mutation+oracle"}
 }
