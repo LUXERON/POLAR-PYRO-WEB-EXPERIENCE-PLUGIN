@@ -3,8 +3,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from qwen_harness.real_app_design import design_schema, route_catalog
-from qwen_harness.real_app_renderer import materialize_real_app
+from polar_pyro_web_experience.real_app_design import design_schema, route_catalog
+from polar_pyro_web_experience.real_app_renderer import materialize_real_app
 
 
 ROOT = Path(__file__).resolve().parents[2]

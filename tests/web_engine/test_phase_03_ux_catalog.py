@@ -6,8 +6,8 @@ from pathlib import Path
 
 import pytest
 
-from qwen_harness.web_contracts import ContractVerdict, canonical_bytes
-from qwen_harness.web_ux_catalog import (
+from polar_pyro_web_experience.web_contracts import ContractVerdict, canonical_bytes
+from polar_pyro_web_experience.web_ux_catalog import (
     EXPECTED_ARCHETYPES,
     REQUIRED_CONTENT_STATES,
     compile_web_cheatsheet,

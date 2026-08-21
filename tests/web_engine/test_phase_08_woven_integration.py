@@ -4,8 +4,8 @@ import urllib.request
 
 import pytest
 
-from qwen_harness.memory import ToamMemory
-from qwen_harness.web_integration import EngineEvidence, compose_experience_attempt
+from polar_pyro_web_experience.memory import ToamMemory
+from polar_pyro_web_experience.web_integration import EngineEvidence, compose_experience_attempt
 
 
 def evidence():

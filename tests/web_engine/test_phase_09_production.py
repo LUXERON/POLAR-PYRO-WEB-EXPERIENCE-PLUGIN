@@ -2,7 +2,7 @@ from __future__ import annotations
 import shutil
 import subprocess
 from pathlib import Path
-from qwen_harness.web_production import rollback_drill, verify_production_project
+from polar_pyro_web_experience.web_production import rollback_drill, verify_production_project
 
 ROOT=Path(__file__).resolve().parents[2]
 

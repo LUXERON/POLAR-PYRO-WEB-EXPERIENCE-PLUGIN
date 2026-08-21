@@ -6,8 +6,8 @@ from pathlib import Path
 
 import pytest
 
-from qwen_harness.web_renderer import RendererError, materialize_react_vite, solve_ui_plan
-from qwen_harness.web_ux_compiler import compile_ux_contract
+from polar_pyro_web_experience.web_renderer import RendererError, materialize_react_vite, solve_ui_plan
+from polar_pyro_web_experience.web_ux_compiler import compile_ux_contract
 
 
 ROOT=Path(__file__).resolve().parents[2]

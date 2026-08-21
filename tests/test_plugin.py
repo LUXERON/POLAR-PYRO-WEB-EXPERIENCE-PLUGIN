@@ -1,4 +1,4 @@
-from qwen_harness.plugin import compile_experience
+from polar_pyro_web_experience.plugin import compile_experience
 
 
 def fixture() -> dict:

@@ -1,7 +1,7 @@
 from __future__ import annotations
 import json
 from pathlib import Path
-from qwen_harness.web_apps import RECIPE
+from polar_pyro_web_experience.web_apps import RECIPE
 
 ROOT=Path(__file__).resolve().parents[2]
 def test_all_ten_apps_have_unique_ports_projects_and_renderer_routes()->None:

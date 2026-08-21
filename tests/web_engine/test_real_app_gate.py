@@ -4,7 +4,7 @@ import hashlib
 import json
 from pathlib import Path
 
-from qwen_harness.real_app_gate import Verdict, verify_real_application
+from polar_pyro_web_experience.real_app_gate import Verdict, verify_real_application
 
 
 BACKEND = {

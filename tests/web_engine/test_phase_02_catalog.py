@@ -4,8 +4,8 @@ import json
 from copy import deepcopy
 from pathlib import Path
 
-from qwen_harness.web_catalog import EXPECTED_COMPONENTS, build_catalog
-from qwen_harness.web_contracts import canonical_bytes, component_catalog_sha256
+from polar_pyro_web_experience.web_catalog import EXPECTED_COMPONENTS, build_catalog
+from polar_pyro_web_experience.web_contracts import canonical_bytes, component_catalog_sha256
 
 
 ROOT = Path(__file__).resolve().parents[2]

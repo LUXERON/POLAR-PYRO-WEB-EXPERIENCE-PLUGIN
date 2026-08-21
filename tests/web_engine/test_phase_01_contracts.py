@@ -4,7 +4,7 @@ from copy import deepcopy
 from dataclasses import replace
 from pathlib import Path
 
-from qwen_harness.web_contracts import (
+from polar_pyro_web_experience.web_contracts import (
     SCHEMA_FILES,
     ContractBundle,
     ContractVerdict,

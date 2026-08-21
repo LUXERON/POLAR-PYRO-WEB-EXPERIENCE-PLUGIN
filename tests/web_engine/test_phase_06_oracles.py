@@ -7,7 +7,7 @@ from pathlib import Path
 
 import pytest
 
-from qwen_harness.web_oracles import OracleVerdict, mutation_adequacy, verify_rendered_project
+from polar_pyro_web_experience.web_oracles import OracleVerdict, mutation_adequacy, verify_rendered_project
 
 
 ROOT=Path(__file__).resolve().parents[2]

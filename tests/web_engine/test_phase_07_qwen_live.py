@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pytest
 
-from qwen_harness.web_binding import binding_schema, generate_binding
+from polar_pyro_web_experience.web_binding import binding_schema, generate_binding
 
 
 ROOT=Path(__file__).resolve().parents[2]

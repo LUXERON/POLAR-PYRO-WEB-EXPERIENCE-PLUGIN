@@ -11,8 +11,8 @@ def main() -> int:
     harness_root = Path(__file__).resolve().parents[1]
     workspace = harness_root.parent
     sys.path.insert(0, str(harness_root / "src"))
-    from qwen_harness.euclid_bridge import EuclidOmegaBridge
-    from qwen_harness.web_ux_compiler import (
+    from polar_pyro_web_experience.euclid_bridge import EuclidOmegaBridge
+    from polar_pyro_web_experience.web_ux_compiler import (
         compile_euclid_ux_requests,
         compile_ux_contract,
         qualify_ux_reasoning,

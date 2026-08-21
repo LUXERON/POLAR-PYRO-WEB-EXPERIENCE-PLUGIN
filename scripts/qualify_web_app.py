@@ -2,7 +2,7 @@ from __future__ import annotations
 import argparse,json,sys
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/"src"))
-from qwen_harness.web_apps import qualify_application,start_review_service
+from polar_pyro_web_experience.web_apps import qualify_application,start_review_service
 
 def main()->int:
  p=argparse.ArgumentParser(); p.add_argument("--app",required=True); p.add_argument("--manifest",type=Path,default=Path("gauntlet/web_experience.production.json")); a=p.parse_args()

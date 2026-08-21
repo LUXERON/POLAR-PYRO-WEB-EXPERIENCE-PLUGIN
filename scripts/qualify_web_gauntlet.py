@@ -4,7 +4,7 @@ from functools import partial
 from http.server import SimpleHTTPRequestHandler,ThreadingHTTPServer
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/"src"))
-from qwen_harness.web_apps import RECIPE
+from polar_pyro_web_experience.web_apps import RECIPE
 
 def main()->int:
  p=argparse.ArgumentParser(); p.add_argument("--infrastructure-only",action="store_true"); p.add_argument("--manifest",type=Path,default=Path("gauntlet/web_experience.production.json")); a=p.parse_args(); m=json.loads(a.manifest.read_text(encoding="utf-8"))

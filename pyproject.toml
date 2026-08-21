@@ -16,7 +16,7 @@ dependencies = []
 dev = ["pytest>=8"]
 
 [project.scripts]
-polar-web-experience = "qwen_harness.plugin:main"
+polar-web-experience = "polar_pyro_web_experience.plugin:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]

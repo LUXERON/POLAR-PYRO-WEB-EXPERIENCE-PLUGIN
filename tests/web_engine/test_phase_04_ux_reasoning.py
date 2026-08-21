@@ -4,8 +4,8 @@ from dataclasses import dataclass
 
 import pytest
 
-from qwen_harness.web_contracts import validate_document
-from qwen_harness.web_ux_compiler import (
+from polar_pyro_web_experience.web_contracts import validate_document
+from polar_pyro_web_experience.web_ux_compiler import (
     UXCompileError,
     compile_euclid_ux_requests,
     compile_ux_contract,

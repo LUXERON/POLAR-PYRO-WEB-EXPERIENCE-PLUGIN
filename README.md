@@ -83,7 +83,7 @@ Unknown top-level fields, uncovered routes, unknown symbols, duplicate tasks, em
 ## Repository map
 
 ```text
-src/qwen_harness/             UX compiler, catalog, renderer, oracles and adapter
+src/polar_pyro_web_experience/             UX compiler, catalog, renderer, oracles and adapter
 schemas/web_experience/       Versioned IR schemas
 catalog/web_experience/       Audited components, providers, precedents and languages
 renderers/react-vite/         Frozen source template and browser oracle
