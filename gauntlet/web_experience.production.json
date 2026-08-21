@@ -1,0 +1,309 @@
+{
+  "schema_version": "1.0",
+  "name": "WEB-EXPERIENCE-ENGINE production qualification",
+  "require_live_review_services": true,
+  "workspace_root": "../..",
+  "requirements": {
+    "stateless_applications": 5,
+    "stateful_applications": 5
+  },
+  "phases": [
+    {
+      "id": "P00",
+      "name": "Baseline, threat model, and frozen architecture",
+      "depends_on": [],
+      "commands": [
+        {
+          "id": "existing-harness-regression",
+          "argv": ["python", "-m", "pytest", "-q"],
+          "cwd": "QWEN3-0.6B-NEUROSYMBOLIC-HARNESS",
+          "timeout_seconds": 900
+        }
+      ],
+      "required_artifacts": [
+        "WEB ENGINE IDEAS/FINAL_WEB_EXPERIENCE_ENGINE_ARCHITECTURE.md",
+        "WEB ENGINE IDEAS/WEB_EXPERIENCE_ENGINE_IMPLEMENTATION_AND_GAUNTLET.md"
+      ]
+    },
+    {
+      "id": "P01",
+      "name": "Canonical web-experience contracts",
+      "depends_on": ["P00"],
+      "commands": [
+        {
+          "id": "contract-conformance",
+          "argv": ["python", "-m", "pytest", "-q", "tests/web_engine/test_phase_01_contracts.py"],
+          "cwd": "QWEN3-0.6B-NEUROSYMBOLIC-HARNESS",
+          "timeout_seconds": 600
+        }
+      ],
+      "required_artifacts": [
+        "QWEN3-0.6B-NEUROSYMBOLIC-HARNESS/schemas/web_experience/application-capability.schema.json",
+        "QWEN3-0.6B-NEUROSYMBOLIC-HARNESS/schemas/web_experience/experience-certificate.schema.json"
+      ]
+    },
+    {
+      "id": "P02",
+      "name": "Audited component foundry and design tokens",
+      "depends_on": ["P01"],
+      "commands": [
+        {
+          "id": "catalog-rebuild-and-audit",
+          "argv": ["python", "-m", "pytest", "-q", "tests/web_engine/test_phase_02_catalog.py"],
+          "cwd": "QWEN3-0.6B-NEUROSYMBOLIC-HARNESS",
+          "timeout_seconds": 1200
+        }
+      ],
+      "required_artifacts": [
+        "QWEN3-0.6B-NEUROSYMBOLIC-HARNESS/catalog/web_experience/catalog.lock.json",
+        "QWEN3-0.6B-NEUROSYMBOLIC-HARNESS/catalog/web_experience/THIRD_PARTY_NOTICES.md"
+      ]
+    },
+    {
+      "id": "P03",
+      "name": "UX vocabulary, design languages, and precedents",
+      "depends_on": ["P02"],
+      "commands": [
+        {
+          "id": "ux-catalog-qualification",
+          "argv": ["python", "-m", "pytest", "-q", "tests/web_engine/test_phase_03_ux_catalog.py"],
+          "cwd": "QWEN3-0.6B-NEUROSYMBOLIC-HARNESS",
+          "timeout_seconds": 900
+        }
+      ],
+      "required_artifacts": [
+        "QWEN3-0.6B-NEUROSYMBOLIC-HARNESS/catalog/web_experience/precedents/precedent-index.json"
+      ]
+    },
+    {
+      "id": "P04",
+      "name": "UX compiler and Euclid-Omega proof adapter",
+      "depends_on": ["P03"],
+      "commands": [
+        {
+          "id": "ux-proof-qualification",
+          "argv": ["python", "-m", "pytest", "-q", "tests/web_engine/test_phase_04_ux_reasoning.py"],
+          "cwd": "QWEN3-0.6B-NEUROSYMBOLIC-HARNESS",
+          "timeout_seconds": 1200
+        },
+        {
+          "id": "live-ux-euclid",
+          "argv": ["python", "scripts/qualify_web_ux_euclid.py"],
+          "cwd": "QWEN3-0.6B-NEUROSYMBOLIC-HARNESS",
+          "timeout_seconds": 1200
+        }
+      ],
+      "required_artifacts": [
+        "QWEN3-0.6B-NEUROSYMBOLIC-HARNESS/docs/WEB_UX_EUCLID_QUALIFICATION.md"
+      ]
+    },
+    {
+      "id": "P05",
+      "name": "Component solver and deterministic React renderer",
+      "depends_on": ["P04"],
+      "commands": [
+        {
+          "id": "renderer-conformance",
+          "argv": ["python", "-m", "pytest", "-q", "tests/web_engine/test_phase_05_renderer.py"],
+          "cwd": "QWEN3-0.6B-NEUROSYMBOLIC-HARNESS",
+          "timeout_seconds": 1200
+        }
+      ],
+      "required_artifacts": [
+        "QWEN3-0.6B-NEUROSYMBOLIC-HARNESS/renderers/react-vite/package.json"
+      ]
+    },
+    {
+      "id": "P06",
+      "name": "Browser, accessibility, visual, performance, security, and mutation oracles",
+      "depends_on": ["P05"],
+      "commands": [
+        {
+          "id": "oracle-adequacy",
+          "argv": ["python", "-m", "pytest", "-q", "tests/web_engine/test_phase_06_oracles.py"],
+          "cwd": "QWEN3-0.6B-NEUROSYMBOLIC-HARNESS",
+          "timeout_seconds": 1800
+        }
+      ],
+      "required_artifacts": [
+        "QWEN3-0.6B-NEUROSYMBOLIC-HARNESS/docs/WEB_ORACLE_ADEQUACY.md"
+      ]
+    },
+    {
+      "id": "P07",
+      "name": "Qwen3-0.6B constrained UX binding and repair",
+      "depends_on": ["P06"],
+      "commands": [
+        {
+          "id": "live-qwen-web-qualification",
+          "argv": ["python", "-m", "pytest", "-q", "tests/web_engine/test_phase_07_qwen_live.py"],
+          "cwd": "QWEN3-0.6B-NEUROSYMBOLIC-HARNESS",
+          "timeout_seconds": 1800
+        }
+      ],
+      "required_artifacts": [
+        "QWEN3-0.6B-NEUROSYMBOLIC-HARNESS/docs/WEB_QWEN06_QUALIFICATION.md"
+      ]
+    },
+    {
+      "id": "P08",
+      "name": "SAE, DEMIURGE, Euclid-Omega, LOOM, and TOAM integration",
+      "depends_on": ["P07"],
+      "commands": [
+        {
+          "id": "woven-line-web-integration",
+          "argv": ["python", "-m", "pytest", "-q", "tests/web_engine/test_phase_08_woven_integration.py"],
+          "cwd": "QWEN3-0.6B-NEUROSYMBOLIC-HARNESS",
+          "timeout_seconds": 1800
+        }
+      ],
+      "required_artifacts": [
+        "QWEN3-0.6B-NEUROSYMBOLIC-HARNESS/docs/WEB_WOVEN_INTEGRATION_QUALIFICATION.md"
+      ]
+    },
+    {
+      "id": "P09",
+      "name": "Production operations, recovery, and supply-chain hardening",
+      "depends_on": ["P08"],
+      "commands": [
+        {
+          "id": "production-readiness",
+          "argv": ["python", "-m", "pytest", "-q", "tests/web_engine/test_phase_09_production.py"],
+          "cwd": "QWEN3-0.6B-NEUROSYMBOLIC-HARNESS",
+          "timeout_seconds": 1800
+        }
+      ],
+      "required_artifacts": [
+        "QWEN3-0.6B-NEUROSYMBOLIC-HARNESS/docs/WEB_PRODUCTION_READINESS.md"
+      ]
+    },
+    {
+      "id": "P10",
+      "name": "Autonomous ten-application infrastructure readiness",
+      "depends_on": ["P09"],
+      "commands": [
+        {
+          "id": "gauntlet-infrastructure",
+          "argv": ["python", "scripts/qualify_web_gauntlet.py", "--infrastructure-only"],
+          "cwd": "QWEN3-0.6B-NEUROSYMBOLIC-HARNESS",
+          "timeout_seconds": 1800
+        }
+      ],
+      "required_artifacts": [
+        "QWEN3-0.6B-NEUROSYMBOLIC-HARNESS/docs/WEB_GAUNTLET_INFRASTRUCTURE.md"
+      ]
+    }
+  ],
+  "applications": [
+    {
+      "id": "S01",
+      "name": "Verified Workflow Policy Studio",
+      "kind": "stateless",
+      "project": "QWEN06-AUTONOMY-SHOWCASE/projects/S01-verified-workflow-policy-compiler",
+      "archetype": "policy_authoring_workbench",
+      "review_url": "http://127.0.0.1:4201",
+      "machine_gates": [
+        {"id": "qualify-s01", "argv": ["python", "scripts/qualify_web_app.py", "--app", "S01"], "cwd": "QWEN3-0.6B-NEUROSYMBOLIC-HARNESS", "timeout_seconds": 3600}
+      ]
+    },
+    {
+      "id": "S02",
+      "name": "Exact Network Optimization Workbench",
+      "kind": "stateless",
+      "project": "QWEN06-AUTONOMY-SHOWCASE/projects/S02-exact-network-optimization-toolkit",
+      "archetype": "analytical_workbench",
+      "review_url": "http://127.0.0.1:4202",
+      "machine_gates": [
+        {"id": "qualify-s02", "argv": ["python", "scripts/qualify_web_app.py", "--app", "S02"], "cwd": "QWEN3-0.6B-NEUROSYMBOLIC-HARNESS", "timeout_seconds": 3600}
+      ]
+    },
+    {
+      "id": "S03",
+      "name": "Streaming Multilingual Search Console",
+      "kind": "stateless",
+      "project": "QWEN06-AUTONOMY-SHOWCASE/projects/S03-streaming-multilingual-index",
+      "archetype": "search_operations_console",
+      "review_url": "http://127.0.0.1:4203",
+      "machine_gates": [
+        {"id": "qualify-s03", "argv": ["python", "scripts/qualify_web_app.py", "--app", "S03"], "cwd": "QWEN3-0.6B-NEUROSYMBOLIC-HARNESS", "timeout_seconds": 3600}
+      ]
+    },
+    {
+      "id": "S04",
+      "name": "Constraint Scheduling Operations Center",
+      "kind": "stateless",
+      "project": "QWEN06-AUTONOMY-SHOWCASE/projects/S04-constraint-scheduling-kernel",
+      "archetype": "planning_workspace",
+      "review_url": "http://127.0.0.1:4204",
+      "machine_gates": [
+        {"id": "qualify-s04", "argv": ["python", "scripts/qualify_web_app.py", "--app", "S04"], "cwd": "QWEN3-0.6B-NEUROSYMBOLIC-HARNESS", "timeout_seconds": 3600}
+      ]
+    },
+    {
+      "id": "S05",
+      "name": "Proof-Carrying Parser Workbench",
+      "kind": "stateless",
+      "project": "QWEN06-AUTONOMY-SHOWCASE/projects/S05-proof-carrying-parser-workbench",
+      "archetype": "developer_proof_workbench",
+      "review_url": "http://127.0.0.1:4205",
+      "machine_gates": [
+        {"id": "qualify-s05", "argv": ["python", "scripts/qualify_web_app.py", "--app", "S05"], "cwd": "QWEN3-0.6B-NEUROSYMBOLIC-HARNESS", "timeout_seconds": 3600}
+      ]
+    },
+    {
+      "id": "A01",
+      "name": "Multi-Tenant Equipment Booking",
+      "kind": "stateful",
+      "project": "QWEN06-AUTONOMY-SHOWCASE/projects/A01-multi-tenant-equipment-booking",
+      "archetype": "scheduling_saas",
+      "review_url": "http://127.0.0.1:4206",
+      "machine_gates": [
+        {"id": "qualify-a01", "argv": ["python", "scripts/qualify_web_app.py", "--app", "A01"], "cwd": "QWEN3-0.6B-NEUROSYMBOLIC-HARNESS", "timeout_seconds": 3600}
+      ]
+    },
+    {
+      "id": "A02",
+      "name": "Warehouse Transfer Control Tower",
+      "kind": "stateful",
+      "project": "QWEN06-AUTONOMY-SHOWCASE/projects/A02-warehouse-transfer-ledger",
+      "archetype": "operations_control_tower",
+      "review_url": "http://127.0.0.1:4207",
+      "machine_gates": [
+        {"id": "qualify-a02", "argv": ["python", "scripts/qualify_web_app.py", "--app", "A02"], "cwd": "QWEN3-0.6B-NEUROSYMBOLIC-HARNESS", "timeout_seconds": 3600}
+      ]
+    },
+    {
+      "id": "A03",
+      "name": "Conflict-Aware Grant Review Portal",
+      "kind": "stateful",
+      "project": "QWEN06-AUTONOMY-SHOWCASE/projects/A03-conflict-aware-grant-review",
+      "archetype": "case_review_workspace",
+      "review_url": "http://127.0.0.1:4208",
+      "machine_gates": [
+        {"id": "qualify-a03", "argv": ["python", "scripts/qualify_web_app.py", "--app", "A03"], "cwd": "QWEN3-0.6B-NEUROSYMBOLIC-HARNESS", "timeout_seconds": 3600}
+      ]
+    },
+    {
+      "id": "A04",
+      "name": "Fleet Maintenance Control Center",
+      "kind": "stateful",
+      "project": "QWEN06-AUTONOMY-SHOWCASE/projects/A04-fleet-maintenance-control",
+      "archetype": "maintenance_operations_center",
+      "review_url": "http://127.0.0.1:4209",
+      "machine_gates": [
+        {"id": "qualify-a04", "argv": ["python", "scripts/qualify_web_app.py", "--app", "A04"], "cwd": "QWEN3-0.6B-NEUROSYMBOLIC-HARNESS", "timeout_seconds": 3600}
+      ]
+    },
+    {
+      "id": "A05",
+      "name": "Incident Response Casebook",
+      "kind": "stateful",
+      "project": "QWEN06-AUTONOMY-SHOWCASE/projects/A05-incident-response-casebook",
+      "archetype": "incident_response_workspace",
+      "review_url": "http://127.0.0.1:4210",
+      "machine_gates": [
+        {"id": "qualify-a05", "argv": ["python", "scripts/qualify_web_app.py", "--app", "A05"], "cwd": "QWEN3-0.6B-NEUROSYMBOLIC-HARNESS", "timeout_seconds": 3600}
+      ]
+    }
+  ]
+}

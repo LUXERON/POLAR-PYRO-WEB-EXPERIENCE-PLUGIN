@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://luxeron.dev/schemas/web-experience/ux-contract-1.0.json",
+  "title": "UXContract",
+  "type": "object",
+  "required": ["schema_version", "application_id", "routes", "tasks", "journeys", "content_states"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {"type": "string", "const": "1.0"},
+    "application_id": {"type": "string", "pattern": "[a-z][a-z0-9._-]*"},
+    "routes": {"type": "array", "minItems": 1, "items": {"type": "object", "required": ["route_id", "visible_to", "primary_task_ids"], "additionalProperties": false, "properties": {
+      "route_id": {"type": "string", "pattern": "[a-z][a-z0-9._-]*"},
+      "visible_to": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "pattern": "[a-z][a-z0-9._-]*"}},
+      "primary_task_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "pattern": "[a-z][a-z0-9._-]*"}}
+    }}},
+    "tasks": {"type": "array", "minItems": 1, "items": {"type": "object", "required": ["id", "role_ids", "entry_route", "success_state", "command_ids", "query_ids"], "additionalProperties": false, "properties": {
+      "id": {"type": "string", "pattern": "[a-z][a-z0-9._-]*"},
+      "role_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "pattern": "[a-z][a-z0-9._-]*"}},
+      "entry_route": {"type": "string", "pattern": "[a-z][a-z0-9._-]*"},
+      "success_state": {"type": "string", "pattern": "[a-z][a-z0-9._-]*"},
+      "command_ids": {"type": "array", "uniqueItems": true, "items": {"type": "string", "pattern": "[a-z][a-z0-9._-]*"}},
+      "query_ids": {"type": "array", "uniqueItems": true, "items": {"type": "string", "pattern": "[a-z][a-z0-9._-]*"}}
+    }}},
+    "journeys": {"type": "array", "minItems": 1, "items": {"type": "object", "required": ["id", "task_id", "steps", "terminal_state", "recovery_route"], "additionalProperties": false, "properties": {
+      "id": {"type": "string", "pattern": "[a-z][a-z0-9._-]*"},
+      "task_id": {"type": "string", "pattern": "[a-z][a-z0-9._-]*"},
+      "steps": {"type": "array", "minItems": 1, "items": {"type": "object", "required": ["id", "route_id", "state"], "additionalProperties": false, "properties": {
+        "id": {"type": "string", "pattern": "[a-z][a-z0-9._-]*"},
+        "route_id": {"type": "string", "pattern": "[a-z][a-z0-9._-]*"},
+        "state": {"type": "string", "pattern": "[a-z][a-z0-9._-]*"},
+        "command_id": {"type": "string", "pattern": "[a-z][a-z0-9._-]*"}
+      }}},
+      "terminal_state": {"type": "string", "pattern": "[a-z][a-z0-9._-]*"},
+      "recovery_route": {"type": "string", "pattern": "[a-z][a-z0-9._-]*"}
+    }}},
+    "content_states": {"type": "object", "minProperties": 1, "additionalProperties": {"type": "array", "minItems": 4, "uniqueItems": true, "items": {"type": "string", "enum": ["loading", "empty", "ready", "error", "recovering", "forbidden"]}}}
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://luxeron.dev/schemas/web-experience/residual-1.0.json",
+  "title": "Residual",
+  "type": "object",
+  "required": ["schema_version", "gate", "code", "path", "expected", "observed", "allowed_patches", "actionable"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {"type": "string", "const": "1.0"},
+    "gate": {"type": "string", "pattern": "[a-z][a-z0-9._-]*"},
+    "code": {"type": "string", "pattern": "[A-Z][A-Z0-9_]*"},
+    "path": {"type": "string", "pattern": "/.*"},
+    "expected": {"type": ["string", "null"]},
+    "observed": {"type": ["string", "null"]},
+    "allowed_patches": {"type": "array", "uniqueItems": true, "items": {"type": "string", "pattern": "[a-z][a-z0-9._-]*"}},
+    "actionable": {"type": "boolean"}
+  }
+}

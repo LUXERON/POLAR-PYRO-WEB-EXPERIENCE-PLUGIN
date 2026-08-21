@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://luxeron.dev/schemas/web-experience/design-language-1.0.json",
+  "title": "DesignLanguage",
+  "type": "object",
+  "required": ["schema_version", "design_language_id", "color_roles", "typography_roles", "spacing_roles", "radius_roles", "motion_policy", "icon_family", "breakpoints"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {"type": "string", "const": "1.0"},
+    "design_language_id": {"type": "string", "pattern": "[a-z][a-z0-9._-]*"},
+    "color_roles": {"type": "object", "minProperties": 1, "additionalProperties": {"type": "string", "pattern": "[a-z][a-z0-9._-]*"}},
+    "typography_roles": {"type": "object", "minProperties": 1, "additionalProperties": {"type": "string", "pattern": "[a-z][a-z0-9._-]*"}},
+    "spacing_roles": {"type": "object", "minProperties": 1, "additionalProperties": {"type": "string", "pattern": "[a-z][a-z0-9._-]*"}},
+    "radius_roles": {"type": "object", "minProperties": 1, "additionalProperties": {"type": "string", "pattern": "[a-z][a-z0-9._-]*"}},
+    "motion_policy": {"type": "string", "enum": ["none", "restrained", "expressive_with_reduced_motion"]},
+    "icon_family": {"type": "string", "pattern": "[a-z][a-z0-9._-]*"},
+    "breakpoints": {"type": "array", "minItems": 2, "uniqueItems": true, "items": {"type": "string", "enum": ["mobile", "tablet", "laptop", "desktop"]}}
+  }
+}

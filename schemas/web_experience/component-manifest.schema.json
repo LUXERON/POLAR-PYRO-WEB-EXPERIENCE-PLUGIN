@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://luxeron.dev/schemas/web-experience/component-manifest-1.0.json",
+  "title": "ComponentManifest",
+  "type": "object",
+  "required": ["schema_version", "component_id", "provider", "version", "commit", "license", "framework", "role", "props", "slots", "events", "states", "allowed_parents", "allowed_children", "required_descendants", "dependencies", "evidence_refs"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {"type": "string", "const": "1.0"},
+    "component_id": {"type": "string", "pattern": "[a-z][a-z0-9._-]*"},
+    "provider": {"type": "string", "pattern": "[a-z][a-z0-9._-]*"},
+    "version": {"type": "string", "minLength": 1},
+    "commit": {"type": "string", "pattern": "[0-9a-f]{7,64}"},
+    "license": {"type": "string", "pattern": "[A-Za-z0-9().+-]+"},
+    "framework": {"type": "string", "enum": ["react-vite"]},
+    "role": {"type": "string", "pattern": "[a-z][a-z0-9._-]*"},
+    "props": {"type": "object", "additionalProperties": {"type": "string", "minLength": 1}},
+    "slots": {"type": "array", "uniqueItems": true, "items": {"type": "string", "pattern": "[a-z][a-z0-9._-]*"}},
+    "events": {"type": "array", "uniqueItems": true, "items": {"type": "string", "pattern": "[a-z][a-z0-9._-]*"}},
+    "states": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "pattern": "[a-z][a-z0-9._-]*"}},
+    "allowed_parents": {"type": "array", "uniqueItems": true, "items": {"type": "string", "pattern": "[a-z][a-z0-9._-]*"}},
+    "allowed_children": {"type": "array", "uniqueItems": true, "items": {"type": "string", "pattern": "[a-z][a-z0-9._-]*"}},
+    "required_descendants": {"type": "array", "uniqueItems": true, "items": {"type": "string", "pattern": "[a-z][a-z0-9._-]*"}},
+    "dependencies": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "evidence_refs": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "pattern": "[0-9a-f]{64}"}}
+  }
+}

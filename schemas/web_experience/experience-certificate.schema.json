@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://luxeron.dev/schemas/web-experience/experience-certificate-1.0.json",
+  "title": "ExperienceCertificate",
+  "type": "object",
+  "required": ["schema_version", "application_id", "contract_hashes", "source_sha256", "oracle_results", "assumptions", "bounds", "created_at"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {"type": "string", "const": "1.0"},
+    "application_id": {"type": "string", "pattern": "[a-z][a-z0-9._-]*"},
+    "contract_hashes": {"type": "object", "required": ["application_capability_sha256", "design_brief_sha256", "ux_binding_sha256", "ux_contract_sha256", "design_language_sha256", "component_catalog_sha256", "ui_plan_sha256", "residual_sha256"], "additionalProperties": false, "properties": {
+      "application_capability_sha256": {"type": "string", "pattern": "[0-9a-f]{64}"},
+      "design_brief_sha256": {"type": "string", "pattern": "[0-9a-f]{64}"},
+      "ux_binding_sha256": {"type": "string", "pattern": "[0-9a-f]{64}"},
+      "ux_contract_sha256": {"type": "string", "pattern": "[0-9a-f]{64}"},
+      "design_language_sha256": {"type": "string", "pattern": "[0-9a-f]{64}"},
+      "component_catalog_sha256": {"type": "string", "pattern": "[0-9a-f]{64}"},
+      "ui_plan_sha256": {"type": "string", "pattern": "[0-9a-f]{64}"},
+      "residual_sha256": {"type": "string", "pattern": "[0-9a-f]{64}"}
+    }},
+    "source_sha256": {"type": "string", "pattern": "[0-9a-f]{64}"},
+    "oracle_results": {"type": "array", "minItems": 1, "items": {"type": "object", "required": ["gate", "verdict", "evidence_sha256"], "additionalProperties": false, "properties": {
+      "gate": {"type": "string", "pattern": "[a-z][a-z0-9._-]*"},
+      "verdict": {"type": "string", "enum": ["PASS", "FAIL", "NO_RESULT"]},
+      "evidence_sha256": {"type": "string", "pattern": "[0-9a-f]{64}"}
+    }}},
+    "assumptions": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "bounds": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "created_at": {"type": "string", "minLength": 1}
+  }
+}

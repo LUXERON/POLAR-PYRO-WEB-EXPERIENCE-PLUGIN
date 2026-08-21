@@ -1,0 +1,1 @@
+{"application_id":"renderer.fixture","routes":[{"route_id":"home","recipe_id":"metric_grid","regions":[{"id":"home.primary","component_id":"metric_card","query_ids":[],"command_ids":[]}]}]}

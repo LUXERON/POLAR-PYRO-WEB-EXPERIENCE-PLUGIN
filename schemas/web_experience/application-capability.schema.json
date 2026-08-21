@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://luxeron.dev/schemas/web-experience/application-capability-1.0.json",
+  "title": "ApplicationCapabilityManifest",
+  "type": "object",
+  "required": ["schema_version", "application_id", "source_engine", "routes", "roles", "queries", "commands", "state_machines", "errors", "provenance"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {"type": "string", "const": "1.0"},
+    "application_id": {"type": "string", "pattern": "[a-z][a-z0-9._-]*"},
+    "source_engine": {"type": "string", "enum": ["sae", "demiurge"]},
+    "routes": {
+      "type": "array", "minItems": 1,
+      "items": {"type": "object", "required": ["id", "path"], "additionalProperties": false, "properties": {
+        "id": {"type": "string", "pattern": "[a-z][a-z0-9._-]*"},
+        "path": {"type": "string", "pattern": "/[A-Za-z0-9_./:{}-]*"}
+      }}
+    },
+    "roles": {
+      "type": "array", "minItems": 1,
+      "items": {"type": "object", "required": ["id"], "additionalProperties": false, "properties": {
+        "id": {"type": "string", "pattern": "[a-z][a-z0-9._-]*"}
+      }}
+    },
+    "queries": {
+      "type": "array", "minItems": 1,
+      "items": {"type": "object", "required": ["id", "result_type", "roles"], "additionalProperties": false, "properties": {
+        "id": {"type": "string", "pattern": "[a-z][a-z0-9._-]*"},
+        "result_type": {"type": "string", "minLength": 1},
+        "roles": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "pattern": "[a-z][a-z0-9._-]*"}}
+      }}
+    },
+    "commands": {
+      "type": "array", "minItems": 1,
+      "items": {"type": "object", "required": ["id", "input_type", "roles", "destructive", "confirmation_required"], "additionalProperties": false, "properties": {
+        "id": {"type": "string", "pattern": "[a-z][a-z0-9._-]*"},
+        "input_type": {"type": "string", "minLength": 1},
+        "roles": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "pattern": "[a-z][a-z0-9._-]*"}},
+        "destructive": {"type": "boolean"},
+        "confirmation_required": {"type": "boolean"}
+      }}
+    },
+    "state_machines": {
+      "type": "array",
+      "items": {"type": "object", "required": ["id", "states", "initial", "transitions"], "additionalProperties": false, "properties": {
+        "id": {"type": "string", "pattern": "[a-z][a-z0-9._-]*"},
+        "states": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "pattern": "[a-z][a-z0-9._-]*"}},
+        "initial": {"type": "string", "pattern": "[a-z][a-z0-9._-]*"},
+        "transitions": {"type": "array", "items": {"type": "object", "required": ["event", "source", "target"], "additionalProperties": false, "properties": {
+          "event": {"type": "string", "pattern": "[a-z][a-z0-9._-]*"},
+          "source": {"type": "string", "pattern": "[a-z][a-z0-9._-]*"},
+          "target": {"type": "string", "pattern": "[a-z][a-z0-9._-]*"}
+        }}}
+      }}
+    },
+    "errors": {"type": "array", "items": {"type": "object", "required": ["code", "recoverable"], "additionalProperties": false, "properties": {
+      "code": {"type": "string", "pattern": "[A-Z][A-Z0-9_]*"}, "recoverable": {"type": "boolean"}
+    }}},
+    "provenance": {"type": "object", "required": ["source_ref", "source_sha256"], "additionalProperties": false, "properties": {
+      "source_ref": {"type": "string", "minLength": 1},
+      "source_sha256": {"type": "string", "pattern": "[0-9a-f]{64}"}
+    }}
+  }
+}

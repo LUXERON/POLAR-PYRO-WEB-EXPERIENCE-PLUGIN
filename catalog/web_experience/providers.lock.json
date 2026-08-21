@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0",
+  "providers": [
+    {
+      "id": "lucide",
+      "repository": "https://github.com/lucide-icons/lucide",
+      "commit": "33a44aa8b0b43d9b0ed14eb08860a1b5550a1573",
+      "license": "ISC",
+      "license_url": "https://raw.githubusercontent.com/lucide-icons/lucide/main/LICENSE",
+      "license_sha256": "b495047bd93a9b06913511076f504daba17d5bbeb3e0650f3bb53a4220329c57"
+    },
+    {
+      "id": "radix-primitives",
+      "repository": "https://github.com/radix-ui/primitives",
+      "commit": "f7ecd5ab16f5e1e820eb5786a1419a98a2d594ae",
+      "license": "MIT",
+      "license_url": "https://raw.githubusercontent.com/radix-ui/primitives/main/LICENSE",
+      "license_sha256": "0e80a2d229d2fd4fc7e8636142ec5d0ff0bc031f14c15b682e2ac01dfd5b5138"
+    },
+    {
+      "id": "shadcn-ui",
+      "repository": "https://github.com/shadcn-ui/ui",
+      "commit": "4e88ab81ae1d1550165db949a903c691a04f699c",
+      "license": "MIT",
+      "license_url": "https://raw.githubusercontent.com/shadcn-ui/ui/main/LICENSE.md",
+      "license_sha256": "1564074e13439397221ffd522e2e504d56561994a23d371aa5e3ad43e4f5423f"
+    }
+  ]
+}

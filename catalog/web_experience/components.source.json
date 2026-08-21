@@ -1,0 +1,146 @@
+{
+  "schema_version": "1.0",
+  "provider": "shadcn-ui",
+  "version": "snapshot-2026-08-20",
+  "components": [
+    {
+      "id": "app_shell", "role": "application_shell",
+      "props": {"aria_label": "string"}, "slots": ["navigation", "content"], "states": ["ready"],
+      "children": ["page_header", "sidebar_nav", "breadcrumb", "card", "metric_card", "alert", "empty_state", "data_table", "form", "tabs", "skeleton"]
+    },
+    {
+      "id": "page_header", "role": "page_heading",
+      "props": {"title": "string", "description": "string"}, "slots": ["actions"], "states": ["ready"],
+      "parents": ["app_shell", "drawer"]
+    },
+    {
+      "id": "sidebar_nav", "role": "primary_navigation",
+      "props": {"aria_label": "string"}, "slots": ["items"], "states": ["expanded", "collapsed"],
+      "parents": ["app_shell"], "children": ["link"]
+    },
+    {
+      "id": "breadcrumb", "role": "location_navigation",
+      "props": {"aria_label": "string"}, "slots": ["items"], "states": ["ready"],
+      "parents": ["app_shell"], "children": ["link"]
+    },
+    {
+      "id": "card", "role": "content_group",
+      "props": {"title": "string", "description": "string"}, "slots": ["header", "content", "footer"], "states": ["ready", "disabled"],
+      "parents": ["app_shell", "tabs"], "children": ["button", "link", "badge", "alert", "data_table", "form", "tabs", "empty_state", "skeleton", "metric_card"]
+    },
+    {
+      "id": "metric_card", "role": "metric_summary",
+      "props": {"label": "string", "value": "string", "delta": "string"}, "states": ["loading", "ready", "error"],
+      "parents": ["app_shell", "card"]
+    },
+    {
+      "id": "button", "role": "command_trigger",
+      "props": {"label": "string", "variant": "enum", "disabled": "boolean"}, "events": ["activate"], "states": ["idle", "hover", "focus", "pressed", "disabled"],
+      "parents": ["page_header", "card", "form", "dialog", "drawer", "data_table", "empty_state"], "children": ["dropdown_menu"]
+    },
+    {
+      "id": "link", "role": "navigation_trigger",
+      "props": {"label": "string", "destination": "route_id"}, "events": ["navigate"], "states": ["idle", "hover", "focus", "current"],
+      "parents": ["sidebar_nav", "breadcrumb", "card", "empty_state"]
+    },
+    {
+      "id": "badge", "role": "status_indicator",
+      "props": {"label": "string", "tone": "enum"}, "states": ["neutral", "positive", "warning", "critical"],
+      "parents": ["card", "data_table"]
+    },
+    {
+      "id": "alert", "role": "status_message",
+      "props": {"title": "string", "description": "string", "tone": "enum"}, "states": ["info", "success", "warning", "error"],
+      "parents": ["app_shell", "card", "form"]
+    },
+    {
+      "id": "toast", "role": "transient_status",
+      "props": {"title": "string", "description": "string"}, "events": ["dismiss"], "states": ["queued", "visible", "dismissed"],
+      "parents": ["app_shell"]
+    },
+    {
+      "id": "dialog", "role": "modal_workspace",
+      "props": {"modal": "boolean"}, "slots": ["title", "description", "content", "actions"], "events": ["open", "close"], "states": ["closed", "open"],
+      "parents": ["app_shell", "card", "data_table"], "children": ["dialog_title", "dialog_description", "form", "button"], "required": ["dialog_title", "dialog_description"]
+    },
+    {
+      "id": "dialog_title", "role": "modal_heading",
+      "props": {"text": "string"}, "states": ["ready"], "parents": ["dialog"]
+    },
+    {
+      "id": "dialog_description", "role": "modal_description",
+      "props": {"text": "string"}, "states": ["ready"], "parents": ["dialog"]
+    },
+    {
+      "id": "drawer", "role": "supplementary_workspace",
+      "props": {"side": "enum"}, "slots": ["header", "content", "actions"], "events": ["open", "close"], "states": ["closed", "open"],
+      "parents": ["app_shell", "data_table"], "children": ["page_header", "form", "button"]
+    },
+    {
+      "id": "dropdown_menu", "role": "command_menu",
+      "props": {"aria_label": "string"}, "slots": ["items"], "events": ["open", "close", "select"], "states": ["closed", "open", "focused"],
+      "parents": ["button"], "children": ["button"]
+    },
+    {
+      "id": "tabs", "role": "view_switcher",
+      "props": {"aria_label": "string"}, "slots": ["list", "panels"], "events": ["select"], "states": ["ready", "focused"],
+      "parents": ["app_shell", "card"], "children": ["card", "data_table", "form"]
+    },
+    {
+      "id": "form", "role": "data_entry_workflow",
+      "props": {"aria_label": "string"}, "slots": ["fields", "actions"], "events": ["submit", "reset"], "states": ["idle", "submitting", "success", "error"],
+      "parents": ["app_shell", "card", "dialog", "drawer", "tabs"], "children": ["form_field", "button", "alert"], "required": ["form_field"]
+    },
+    {
+      "id": "form_field", "role": "labeled_control_group",
+      "props": {"name": "string", "required": "boolean"}, "slots": ["label", "control", "message"], "states": ["idle", "focus", "invalid", "disabled"],
+      "parents": ["form"], "children": ["label", "input", "textarea", "select", "checkbox", "radio_group", "switch"]
+    },
+    {
+      "id": "label", "role": "control_label",
+      "props": {"text": "string", "for": "control_id"}, "states": ["ready", "disabled"], "parents": ["form_field"]
+    },
+    {
+      "id": "input", "role": "single_line_input",
+      "props": {"name": "string", "input_type": "enum", "autocomplete": "string"}, "events": ["input", "change", "blur"], "states": ["idle", "focus", "invalid", "disabled"], "parents": ["form_field"]
+    },
+    {
+      "id": "textarea", "role": "multiline_input",
+      "props": {"name": "string", "rows": "integer"}, "events": ["input", "change", "blur"], "states": ["idle", "focus", "invalid", "disabled"], "parents": ["form_field"]
+    },
+    {
+      "id": "select", "role": "single_choice_input",
+      "props": {"name": "string", "options": "array"}, "events": ["open", "change", "close"], "states": ["closed", "open", "invalid", "disabled"], "parents": ["form_field"]
+    },
+    {
+      "id": "checkbox", "role": "boolean_input",
+      "props": {"name": "string", "label": "string"}, "events": ["change"], "states": ["unchecked", "checked", "indeterminate", "disabled"], "parents": ["form_field"]
+    },
+    {
+      "id": "radio_group", "role": "exclusive_choice_input",
+      "props": {"name": "string", "options": "array"}, "events": ["change"], "states": ["idle", "focus", "invalid", "disabled"], "parents": ["form_field"]
+    },
+    {
+      "id": "switch", "role": "immediate_boolean_input",
+      "props": {"name": "string", "label": "string"}, "events": ["change"], "states": ["off", "on", "focus", "disabled"], "parents": ["form_field"]
+    },
+    {
+      "id": "data_table", "role": "data_collection",
+      "props": {"rows": "array", "columns": "array", "caption": "string"}, "slots": ["toolbar", "body", "footer"], "events": ["sort", "filter", "select"], "states": ["loading", "empty", "ready", "error"],
+      "parents": ["app_shell", "card", "tabs"], "children": ["badge", "button", "pagination", "skeleton", "empty_state"]
+    },
+    {
+      "id": "pagination", "role": "collection_navigation",
+      "props": {"page": "integer", "page_count": "integer"}, "events": ["previous", "next", "select"], "states": ["ready", "first", "last", "disabled"], "parents": ["data_table"]
+    },
+    {
+      "id": "skeleton", "role": "loading_placeholder",
+      "props": {"aria_label": "string"}, "states": ["loading", "hidden"], "parents": ["app_shell", "card", "data_table"]
+    },
+    {
+      "id": "empty_state", "role": "empty_collection_message",
+      "props": {"title": "string", "description": "string"}, "slots": ["actions"], "states": ["empty", "filtered_empty"],
+      "parents": ["app_shell", "card", "data_table"], "children": ["button", "link"]
+    }
+  ]
+}

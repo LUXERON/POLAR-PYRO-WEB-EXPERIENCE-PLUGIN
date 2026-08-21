@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://luxeron.dev/schemas/web-experience/design-brief-1.0.json",
+  "title": "DesignBrief",
+  "type": "object",
+  "required": ["schema_version", "application_id", "audiences", "product_category", "attributes", "exclusions", "density", "device_priorities", "accessibility_target"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {"type": "string", "const": "1.0"},
+    "application_id": {"type": "string", "pattern": "[a-z][a-z0-9._-]*"},
+    "audiences": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "product_category": {"type": "string", "pattern": "[a-z][a-z0-9._-]*"},
+    "attributes": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "pattern": "[a-z][a-z0-9._-]*"}},
+    "exclusions": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "density": {"type": "string", "enum": ["comfortable", "compact", "dense"]},
+    "device_priorities": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "enum": ["desktop", "laptop", "tablet", "mobile"]}},
+    "accessibility_target": {"type": "string", "enum": ["wcag_2_2_aa"]}
+  }
+}

@@ -1,0 +1,24 @@
+import {chromium} from "playwright";
+import {spawn} from "node:child_process";
+import {createInterface} from "node:readline";
+import {rm} from "node:fs/promises";
+
+await rm("browser-runtime.sqlite3",{force:true});
+const runtime=spawn("python",["server.py","--port","0","--db","browser-runtime.sqlite3","--dist","dist"],{cwd:process.cwd(),stdio:["ignore","pipe","pipe"]});
+const lines=createInterface({input:runtime.stdout});
+const ready=await new Promise((resolve,reject)=>{const timer=setTimeout(()=>reject(new Error("backend startup timeout")),10000);lines.on("line",line=>{try{const value=JSON.parse(line);if(value.ready){clearTimeout(timer);resolve(value)}}catch{}});runtime.once("exit",code=>reject(new Error(`backend exited before ready: ${code}`)))});
+const url=`http://127.0.0.1:${ready.port}`;
+const browser=await chromium.launch({headless:true});
+const violations=[];const journeys=["discover_and_match","message_with_consent","plan_safe_date","verify_identity","report_and_block","moderate_report"];
+try{const page=await browser.newPage({viewport:{width:1440,height:960},reducedMotion:"reduce"});page.on("pageerror",e=>violations.push(`pageerror: ${e.message}`));page.on("console",m=>{if(m.type()==="error"&&!m.text().includes("font"))violations.push(`console: ${m.text()}`)});await page.goto(url,{waitUntil:"networkidle"});await page.evaluate(()=>localStorage.clear());await page.reload({waitUntil:"networkidle"});await page.locator(".app").waitFor();
+ if(await page.locator("[data-route]").count()!==12)violations.push("12 product routes required");
+ await page.getByTestId("review_explainable_profile").waitFor();await page.getByTestId("express_interest").click();try{await page.locator("h2").filter({hasText:"A smaller, better circle."}).waitFor()}catch{violations.push("match journey did not navigate")}
+ await page.locator('[data-route="messages"]').click();await page.getByTestId("open_match").click();await page.getByLabel("Message").fill("I’m reading The Creative Act. Coffee this weekend?");await page.getByTestId("send_message").click();try{await page.getByText("Delivered",{exact:false}).waitFor()}catch{violations.push("message delivery state missing")}
+ await page.locator('[data-route="plans"]').click();await page.getByTestId("propose_place_and_time").click();await page.getByTestId("share_check_in").waitFor();await page.getByTestId("share_check_in").click();await page.getByText("Check-in shared").waitFor();await page.getByTestId("confirm_plan").click();try{await page.getByText("Confirmed plan").waitFor()}catch{violations.push("plan did not confirm")}
+ await page.locator('[data-route="verification"]').click();await page.getByTestId("submit_evidence").click();try{await page.getByText("You’re verified.").waitFor()}catch{violations.push("verification state missing")}
+ await page.locator('[data-route="safety"]').click();await page.getByTestId("submit_attributed_report").click();await page.getByTestId("report_submitted").waitFor();await page.getByTestId("confirm_block_and_audit").click();try{await page.getByText("Blocked · audit saved").waitFor()}catch{violations.push("block audit state missing")}
+ await page.locator('[data-route="moderation"]').click();if(!await page.getByTestId("moderation_forbidden").count())violations.push("member reached moderation");await page.getByLabel("Demo role").selectOption("moderator");await page.getByTestId("record_bounded_decision").click();
+ await page.getByTestId("simulate-api-failure").click();if(!await page.getByTestId("api_error").count())violations.push("failure state missing");await page.getByTestId("retry_api").click();if(await page.getByTestId("api_error").count())violations.push("failure recovery failed");
+ await page.reload({waitUntil:"networkidle"});await page.locator(".app").waitFor();if(!await page.getByText("resolved",{exact:true}).count())violations.push("reload persistence failed");await page.screenshot({path:"browser-desktop.png",fullPage:true});await page.setViewportSize({width:390,height:844});await page.goto(url+"/#discover",{waitUntil:"networkidle"});await page.locator(".app").waitFor();if(await page.evaluate(()=>document.documentElement.scrollWidth>document.documentElement.clientWidth))violations.push("mobile horizontal overflow");await page.screenshot({path:"browser-mobile.png",fullPage:true});
+}finally{await browser.close();runtime.kill();lines.close()}
+const receipt={verdict:violations.length?"FAIL":"PASS",violations,journeys,reload_persistence_passed:!violations.includes("reload persistence failed"),negative_authorization_passed:!violations.includes("member reached moderation"),api_failure_recovery_passed:!violations.includes("failure recovery failed"),backend_round_trip_passed:!violations.some(x=>x.startsWith("pageerror")||x.startsWith("console"))};console.log(JSON.stringify(receipt));if(violations.length)process.exit(1);

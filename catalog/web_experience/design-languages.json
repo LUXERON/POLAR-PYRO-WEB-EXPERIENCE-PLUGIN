@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0",
+  "design_languages": [
+    {
+      "schema_version": "1.0", "design_language_id": "ops.precise.light.v1",
+      "color_roles": {"surface": "neutral.0", "surface_muted": "neutral.50", "text": "neutral.950", "action": "blue.600", "critical": "red.600"},
+      "typography_roles": {"display": "type.display.lg", "page_title": "type.title.lg", "section_title": "type.title.md", "body": "type.body.md", "caption": "type.caption.sm", "data_label": "type.data.sm"},
+      "spacing_roles": {"page": "space.6", "section": "space.6", "group": "space.4", "control": "space.2"},
+      "radius_roles": {"surface": "radius.md", "control": "radius.sm"},
+      "motion_policy": "restrained", "icon_family": "lucide", "breakpoints": ["mobile", "laptop", "desktop"]
+    },
+    {
+      "schema_version": "1.0", "design_language_id": "ops.precise.dark.v1",
+      "color_roles": {"surface": "neutral.950", "surface_muted": "neutral.900", "text": "neutral.50", "action": "cyan.400", "critical": "red.400"},
+      "typography_roles": {"display": "type.display.lg", "page_title": "type.title.lg", "section_title": "type.title.md", "body": "type.body.md", "caption": "type.caption.sm", "data_label": "type.data.sm"},
+      "spacing_roles": {"page": "space.6", "section": "space.6", "group": "space.4", "control": "space.2"},
+      "radius_roles": {"surface": "radius.sm", "control": "radius.sm"},
+      "motion_policy": "restrained", "icon_family": "lucide", "breakpoints": ["mobile", "laptop", "desktop"]
+    },
+    {
+      "schema_version": "1.0", "design_language_id": "warm.approachable.light.v1",
+      "color_roles": {"surface": "stone.0", "surface_muted": "orange.50", "text": "stone.950", "action": "orange.600", "critical": "red.600"},
+      "typography_roles": {"display": "type.display.lg", "page_title": "type.title.lg", "section_title": "type.title.md", "body": "type.body.md", "caption": "type.caption.sm", "data_label": "type.data.sm"},
+      "spacing_roles": {"page": "space.6", "section": "space.8", "group": "space.4", "control": "space.3"},
+      "radius_roles": {"surface": "radius.lg", "control": "radius.md"},
+      "motion_policy": "expressive_with_reduced_motion", "icon_family": "lucide", "breakpoints": ["mobile", "laptop", "desktop"]
+    }
+  ]
+}
